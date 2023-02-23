@@ -1,23 +1,27 @@
-import { nanoid } from "nanoid";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { productRequestAsync } from "../../store/product/productSlice";
 import { CatalogProduct } from "../CatalogProduct/CatalogProduct";
 import { Container } from "../Container/Container";
 import { Order } from "../Order/Order";
 
 import style from "./Catalog.module.css";
 
-const goodsList = [
-  { id: nanoid(), title: "Мясная бомба" },
-  { id: nanoid(), title: "Супер сырный" },
-  { id: nanoid(), title: "Сытный" },
-  { id: nanoid(), title: "Итальянский" },
-  { id: nanoid(), title: "Вечная классика" },
-  { id: nanoid(), title: "Тяжелый удар" },
-];
 
 const Catalog = () => {
-  const catalogItem = goodsList.map((item) => (
+  const { products } = useSelector(state => state.product)
+  const { category, activeCategory } = useSelector(state => state.category)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (category.length) {
+      dispatch(productRequestAsync(category[activeCategory].title));
+    }
+  }, [category, activeCategory]);
+
+  const catalogItem = products.map((item) => (
     <li className={style.item} key={item.id}>
-      <CatalogProduct title={item.title} />
+      <CatalogProduct item={item} />
     </li>
   ));
 
@@ -26,7 +30,7 @@ const Catalog = () => {
       <Container className={style.container}>
         <Order />
         <div className={style.wrapper}>
-          <h2 className={style.title}>Бургеры</h2>
+          <h2 className={style.title}>{category[activeCategory]?.rus}</h2>
           <div className={style.wrap_list}>
             <ul className={style.list}>{catalogItem}</ul>
           </div>
