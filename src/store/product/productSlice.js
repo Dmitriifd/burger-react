@@ -20,16 +20,16 @@ const productSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(productRequestAsync.pending, (state) => {
-        state.error = ''
+        state.error = "";
       })
       .addCase(productRequestAsync.fulfilled, (state, action) => {
-        state.error = ''
-        state.products = action.payload
+        state.error = "";
+        state.products = action.payload;
       })
       .addCase(productRequestAsync.rejected, (state, action) => {
-        state.error = action.payload.error
+        state.error = action.payload.error;
       });
   },
 });
 
-export default productSlice.reducer
+export default productSlice.reducer;

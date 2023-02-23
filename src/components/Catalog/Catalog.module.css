@@ -20,6 +20,13 @@
   gap: 10px;
 }
 
+.empty {
+  font-size: 20px;
+  text-align: center;
+  border: 1px solid tomato;
+  padding: 30px;
+}
+
 @media (min-width: 1024px) {
   .catalog {
     margin-bottom: 100px;

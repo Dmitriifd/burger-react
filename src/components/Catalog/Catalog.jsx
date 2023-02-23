@@ -7,11 +7,11 @@ import { Order } from "../Order/Order";
 
 import style from "./Catalog.module.css";
 
-
 const Catalog = () => {
-  const { products } = useSelector(state => state.product)
-  const { category, activeCategory } = useSelector(state => state.category)
-  const dispatch = useDispatch()
+  const { products } = useSelector((state) => state.product);
+  const { category, activeCategory } = useSelector((state) => state.category);
+  console.log(products);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (category.length) {
@@ -32,7 +32,13 @@ const Catalog = () => {
         <div className={style.wrapper}>
           <h2 className={style.title}>{category[activeCategory]?.rus}</h2>
           <div className={style.wrap_list}>
-            <ul className={style.list}>{catalogItem}</ul>
+            {products.length ? (
+              <ul className={style.list}>{catalogItem}</ul>
+            ) : (
+              <p className={style.empty}>
+                К сожалению товаров данной категории нет
+              </p>
+            )}
           </div>
         </div>
       </Container>
@@ -41,3 +47,5 @@ const Catalog = () => {
 };
 
 export { Catalog };
+
+console.log(![].length);
