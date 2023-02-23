@@ -1,48 +1,42 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { nanoid } from "nanoid";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { API_URI, POSTFIX } from "../../const";
 
 const initialState = {
-  category: [
-    { id: nanoid(), title: "burger", rus: "Бургеры", image: "/img/burger.png" },
-    { id: nanoid(), title: "snack", rus: "Закуски", image: "/img/snack.png" },
-    {
-      id: nanoid(),
-      title: "hot-dog",
-      rus: "Хот-доги",
-      image: "/img/hot-dog.png",
-    },
-    { id: nanoid(), title: "combo", rus: "Комбо", image: "/img/combo.png" },
-    {
-      id: nanoid(),
-      title: "shawarma",
-      rus: "Шаурма",
-      image: "/img/shawarma.png",
-    },
-    { id: nanoid(), title: "pizza", rus: "Пицца", image: "/img/pizza.png" },
-    { id: nanoid(), title: "wok", rus: "Вок", image: "/img/wok.png" },
-    {
-      id: nanoid(),
-      title: "dessert",
-      rus: "Десерты",
-      image: "/img/dessert.png",
-    },
-    { id: nanoid(), title: "sauce", rus: "Соусы", image: "/img/sauce.png" },
-  ],
+  category: [],
   error: "",
   activeCategory: 0,
 };
+
+export const categoryRequestAsync = createAsyncThunk(
+  "category/fetch",
+  (data, obj) => {
+    return fetch(`${API_URI}${POSTFIX}/category`)
+      .then((req) => req.json())
+      .catch((error) => ({ error }));
+  }
+);
 
 const categorySlice = createSlice({
   name: "category",
   initialState,
   reducers: {
     changeCategory(state, action) {
-      console.log(action);
       state.activeCategory = action.payload.indexCategory;
+    },
+  },
+  extraReducers: {
+    [categoryRequestAsync.pending.type]: (state) => {
+      state.error = "";
+    },
+    [categoryRequestAsync.fulfilled.type]: (state, action) => {
+      state.error = "";
+      state.category = action.payload;
+    },
+    [categoryRequestAsync.rejected.type]: (state, action) => {
+      state.error = action.payload.error;
     },
   },
 });
 
 export const { changeCategory } = categorySlice.actions;
-
 export default categorySlice.reducer;
