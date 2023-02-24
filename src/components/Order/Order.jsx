@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import classNames from "classnames";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../store/modalDelivery/modalDeliverySlice";
 import { orderRequestAsync } from "../../store/order/orderSlice";
@@ -11,14 +12,23 @@ const Order = () => {
   );
   const dispatch = useDispatch();
 
+  const [openOrder, setOpenOrder] = useState(false);
+
   useEffect(() => {
     dispatch(orderRequestAsync());
   }, [orderList.length]);
 
   return (
-    <div className={style.order}>
+    <div className={classNames(style.order, openOrder ? style.order_open : '')}>
       <section className={style.wrapper}>
-        <div className={style.header} tabIndex='0' role='button'>
+        <div
+          className={style.header}
+          tabIndex='0'
+          role='button'
+          onClick={() => {
+            setOpenOrder(!openOrder);
+          }}
+        >
           <h2 className={style.title}>Корзина</h2>
 
           <span className={style.count}>{totalCount}</span>
@@ -39,7 +49,11 @@ const Order = () => {
             </p>
           </div>
 
-          <button className={style.submit} onClick={() => dispatch(openModal())} disabled={orderGoods.length === 0}>
+          <button
+            className={style.submit}
+            onClick={() => dispatch(openModal())}
+            disabled={orderGoods.length === 0}
+          >
             Оформить заказ
           </button>
 

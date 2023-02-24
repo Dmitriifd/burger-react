@@ -8,7 +8,7 @@ import { Order } from "../Order/Order";
 import style from "./Catalog.module.css";
 
 const Catalog = () => {
-  const { products } = useSelector((state) => state.product);
+  const { products, flag } = useSelector((state) => state.product);
   const { category, activeCategory } = useSelector((state) => state.category);
   const dispatch = useDispatch();
 
@@ -34,9 +34,11 @@ const Catalog = () => {
             {products.length ? (
               <ul className={style.list}>{catalogItem}</ul>
             ) : (
-              <p className={style.empty}>
-                К сожалению товаров данной категории нет
-              </p>
+              flag && (
+                <p className={style.empty}>
+                  К сожалению товаров данной категории нет
+                </p>
+              )
             )}
           </div>
         </div>
