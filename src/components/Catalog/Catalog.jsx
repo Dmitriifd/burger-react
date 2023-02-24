@@ -10,7 +10,6 @@ import style from "./Catalog.module.css";
 const Catalog = () => {
   const { products } = useSelector((state) => state.product);
   const { category, activeCategory } = useSelector((state) => state.category);
-  console.log(products);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,5 +46,3 @@ const Catalog = () => {
 };
 
 export { Catalog };
-
-console.log(![].length);
