@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { openModal } from "../../store/modalDelivery/modalDeliverySlice";
 import { orderRequestAsync } from "../../store/order/orderSlice";
 import { OrderGoods } from "../OrderGoods/OrderGoods";
 import style from "./Order.module.css";
@@ -38,7 +39,9 @@ const Order = () => {
             </p>
           </div>
 
-          <button className={style.submit}>Оформить заказ</button>
+          <button className={style.submit} onClick={() => dispatch(openModal())} disabled={orderGoods.length === 0}>
+            Оформить заказ
+          </button>
 
           <div className={style.apeal}>
             <p className={style.text}>Бесплатная доставка</p>
