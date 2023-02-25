@@ -16,6 +16,7 @@ export const categoryRequestAsync = createAsyncThunk(
   }
 );
 
+// Объект содержащий и редьюсеры и actions
 const categorySlice = createSlice({
   name: "category",
   initialState,
