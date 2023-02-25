@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { API_URI } from "../../const";
 import { Count } from "../Count/Count";
 import style from "./OrderGoods.module.css";
 
 const OrderGoods = ({ title, weight, price, image, id, count }) => {
+
   return (
     <li className={style.item}>
       <img className={style.image} src={`${API_URI}/${image}`} alt={title} />

@@ -7,7 +7,7 @@ import { Order } from "../Order/Order";
 
 import style from "./Catalog.module.css";
 
-const Catalog = () => {
+const Catalog = ({ modalProductId }) => {
   const { products, flag } = useSelector((state) => state.product);
   const { category, activeCategory } = useSelector((state) => state.category);
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const Catalog = () => {
 
   const catalogItem = products.map((item) => (
     <li className={style.item} key={item.id}>
-      <CatalogProduct item={item} />
+      <CatalogProduct item={item} modalProductId={modalProductId} />
     </li>
   ));
 

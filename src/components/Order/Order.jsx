@@ -10,6 +10,7 @@ const Order = () => {
   const { totalPrice, totalCount, orderList, orderGoods } = useSelector(
     (state) => state.order
   );
+
   const dispatch = useDispatch();
 
   const [openOrder, setOpenOrder] = useState(false);
@@ -19,7 +20,7 @@ const Order = () => {
   }, [orderList.length]);
 
   return (
-    <div className={classNames(style.order, openOrder ? style.order_open : '')}>
+    <div className={classNames(style.order, openOrder ? style.order_open : "")}>
       <section className={style.wrapper}>
         <div
           className={style.header}
