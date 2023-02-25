@@ -5,6 +5,7 @@
   cursor: pointer;
   overflow-y: auto;
   display: flex;
+  z-index: 10;
 }
 
 .modal__close {
@@ -235,6 +236,12 @@
   .form {
     margin-bottom: 32px;
     gap: 16px;
+  }
+
+  .form_label {
+    width: 100%;
+    font-size: 12px;
+    color: red;
   }
 
   .input {

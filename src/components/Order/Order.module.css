@@ -21,6 +21,12 @@
   outline: none;
 }
 
+@media (max-width: 1024px) {
+  .header {
+    cursor: pointer;
+  }
+}
+
 .header:after {
   content: "";
   position: absolute;
