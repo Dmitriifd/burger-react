@@ -54,4 +54,10 @@
     grid-template-columns: repeat(auto-fit, 300px);
     gap: 30px;
   }
+
+  .center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

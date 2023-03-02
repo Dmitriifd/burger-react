@@ -16,7 +16,6 @@ export const categoryRequestAsync = createAsyncThunk(
   }
 );
 
-// Объект содержащий и редьюсеры и actions
 const categorySlice = createSlice({
   name: "category",
   initialState,
@@ -39,6 +38,5 @@ const categorySlice = createSlice({
       });
   },
 });
-
 export const { changeCategory } = categorySlice.actions;
 export default categorySlice.reducer;

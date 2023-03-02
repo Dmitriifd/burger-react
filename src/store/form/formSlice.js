@@ -12,6 +12,7 @@ const initialState = {
   error: null,
   errors: {},
   touch: false,
+  status: ''
 };
 
 export const submitForm = createAsyncThunk(
@@ -61,13 +62,16 @@ const formSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(submitForm.pending, (state) => {
+        state.status = 'loading';
         state.error = null;
         state.response = null;
       })
       .addCase(submitForm.fulfilled, (state, action) => {
+        state.status = 'success';
         state.response = action.payload;
       })
       .addCase(submitForm.rejected, (state, action) => {
+        state.status = 'failed'
         state.error = action.payload;
       });
   },

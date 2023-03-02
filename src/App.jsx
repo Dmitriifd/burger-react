@@ -16,9 +16,11 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetch(`${API_URI}${POSTFIX}/${productId}`)
-      .then((response) => response.json())
-      .then((data) => setDataModal(data));
+    if (productId) {
+      fetch(`${API_URI}${POSTFIX}/${productId}`)
+        .then((response) => response.json())
+        .then((data) => setDataModal(data));
+    }
   }, [productId]);
 
   return (
@@ -29,7 +31,7 @@ const App = () => {
         <Catalog modalProductId={modalProductId} />
       </main>
       <Footer />
-      <ModalProduct {...dataModal} id={productId} />
+      <ModalProduct {...dataModal} id={productId} setProductId={setProductId} />
       <ModalDelivery />
     </>
   );

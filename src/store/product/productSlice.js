@@ -5,6 +5,7 @@ const initialState = {
   products: [],
   flag: false,
   error: "",
+  status: "",
 };
 
 export const productRequestAsync = createAsyncThunk(
@@ -22,14 +23,17 @@ const productSlice = createSlice({
     builder
       .addCase(productRequestAsync.pending, (state) => {
         state.error = "";
+        state.status = 'loading';
       })
       .addCase(productRequestAsync.fulfilled, (state, action) => {
         state.error = "";
+        state.status = "success";
         state.products = action.payload;
         state.flag = true
       })
       .addCase(productRequestAsync.rejected, (state, action) => {
         state.error = action.payload.error;
+        state.status = "failed";
       });
   },
 });
