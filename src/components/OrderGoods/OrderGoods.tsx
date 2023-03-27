@@ -1,8 +1,10 @@
-import { API_URI } from "../../const";
-import { Count } from "../Count/Count";
-import style from "./OrderGoods.module.css";
+import { Count } from 'components/Count/Count';
+import { API_URI } from 'store/const';
+import { Product } from 'types/product';
 
-const OrderGoods = ({ title, weight, price, image, id, count }) => {
+import style from './OrderGoods.module.css';
+
+const OrderGoods = ({ title, weight, price, image, id, count }: Product) => {
   return (
     <li className={style.item}>
       <img className={style.image} src={`${API_URI}/${image}`} alt={title} />
@@ -14,7 +16,7 @@ const OrderGoods = ({ title, weight, price, image, id, count }) => {
 
         <p className={style.price}>
           {price}
-          <span className='currency'>&nbsp;₽</span>
+          <span className="currency">&nbsp;₽</span>
         </p>
       </div>
       <Count count={count} id={id} />

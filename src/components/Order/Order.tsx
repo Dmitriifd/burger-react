@@ -1,17 +1,17 @@
-import classNames from "classnames";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../../store/modalDelivery/modalDeliverySlice";
-import { orderRequestAsync } from "../../store/order/orderSlice";
-import { OrderGoods } from "../OrderGoods/OrderGoods";
-import style from "./Order.module.css";
+import classNames from 'classnames';
+import { OrderGoods } from 'components/OrderGoods/OrderGoods';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from 'store';
+import { openModal } from 'store/modalDelivery/modalDeliverySlice';
+import { orderRequestAsync } from 'store/order/orderSlice';
+
+import style from './Order.module.css';
 
 const Order = () => {
-  const { totalPrice, totalCount, orderList, orderGoods } = useSelector(
-    (state) => state.order
-  );
+  const { totalPrice, totalCount, orderList, orderGoods } = useSelector((state: RootState) => state.order);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [openOrder, setOpenOrder] = useState(false);
 
@@ -20,16 +20,15 @@ const Order = () => {
   }, [orderList.length]);
 
   return (
-    <div className={classNames(style.order, openOrder ? style.order_open : "")}>
+    <div className={classNames(style.order, openOrder ? style.order_open : '')}>
       <section className={style.wrapper}>
         <div
           className={style.header}
-          tabIndex='0'
-          role='button'
+          tabIndex={0}
+          role="button"
           onClick={() => {
             setOpenOrder(!openOrder);
-          }}
-        >
+          }}>
           <h2 className={style.title}>Корзина</h2>
 
           <span className={style.count}>{totalCount}</span>
@@ -45,16 +44,12 @@ const Order = () => {
           <div className={style.total}>
             <p>Итого</p>
             <p>
-              <span className='amount'>{totalPrice}</span>
-              <span className='currency'>&nbsp;₽</span>
+              <span className="amount">{totalPrice}</span>
+              <span className="currency">&nbsp;₽</span>
             </p>
           </div>
 
-          <button
-            className={style.submit}
-            onClick={() => dispatch(openModal())}
-            disabled={orderGoods.length === 0}
-          >
+          <button className={style.submit} onClick={() => dispatch(openModal())} disabled={orderGoods.length === 0}>
             Оформить заказ
           </button>
 

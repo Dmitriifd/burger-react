@@ -1,13 +1,14 @@
-import style from "./Header.module.css";
-import logo from "../../assets/img/logo.svg";
-import { Container } from "../Container/Container";
+import logo from '../../assets/img/logo.svg';
+import { Container } from 'components/Container/Container';
+
+import style from './Header.module.css';
 
 const Header = () => {
   return (
     <header className={style.header}>
       <Container>
         <div className={style.container}>
-          <img className={style.logo} src={logo} alt='Логотип YourMeal' />
+          <img className={style.logo} src={logo} alt="Логотип YourMeal" />
 
           <div className={style.wrapper}>
             <h1 className={style.title}>
