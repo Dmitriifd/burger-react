@@ -87,7 +87,7 @@ const formSlice = createSlice({
 export const { updateFormValue, setError, clearError, changeTouch, clearForm } = formSlice.actions;
 export default formSlice.reducer;
 
-export const validateForm = () => (dispatch: AppDispatch, getState: () => RootState) => {
+export const validateForm = () => (dispatch: AppDispatch, getState: () => RootState ) => {
   const form = getState().form;
 
   const errors: ValidateFormErrors = {};

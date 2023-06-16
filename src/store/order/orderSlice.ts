@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, Middleware } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, Middleware, PayloadAction } from '@reduxjs/toolkit';
 
 import { OrderGoods, OrderList } from 'types/order';
 import { RootState } from 'store';
@@ -45,23 +45,27 @@ const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    addProduct: (state, action) => {
-      const productOrderList = state.orderList.find((item) => item.id === action.payload.id)!;
+    addProduct: (state, action: PayloadAction<{id: string}>) => {
+      const productOrderList = state.orderList.find((item) => item.id === action.payload.id);
       if (productOrderList) {
-        productOrderList.count! += 1;
-        const productOrderGoods = state.orderGoods.find((item) => item.id === action.payload.id)!;
-        productOrderGoods.count = productOrderList.count!;
+        productOrderList.count += 1;
+        const productOrderGoods = state.orderGoods.find((item) => item.id === action.payload.id);
+        if (productOrderGoods) {
+          productOrderGoods.count = productOrderList.count;
+        }
         [state.totalCount, state.totalPrice] = calcTotal(state.orderGoods);
       } else {
         state.orderList.push({ ...action.payload, count: 1 });
       }
     },
-    removeProduct: (state, action) => {
-      const productOrderList = state.orderList.find((item) => item.id === action.payload.id)!;
-      if (productOrderList.count! > 1) {
-        productOrderList.count! -= 1;
-        const productOrderGoods = state.orderGoods.find((item) => item.id === action.payload.id)!;
-        productOrderGoods.count = productOrderList.count!;
+    removeProduct: (state, action: PayloadAction<{id: string}>) => {
+      const productOrderList = state.orderList.find((item) => item.id === action.payload.id);
+      if (productOrderList && productOrderList.count > 1) {
+        productOrderList.count -= 1;
+        const productOrderGoods = state.orderGoods.find((item) => item.id === action.payload.id);
+        if (productOrderGoods) {
+          productOrderGoods.count = productOrderList.count;
+        }
         [state.totalCount, state.totalPrice] = calcTotal(state.orderGoods);
       } else {
         state.orderList = state.orderList.filter((item) => item.id !== action.payload.id);

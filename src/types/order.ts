@@ -1,5 +1,5 @@
 export interface OrderList {
-  count?: number;
+  count: number;
   id: string;
 }
 
